@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Machine Learning Course Review</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 20px; }
+        h1, h2, h3 { color: #004d99; }
+        code { background-color: #f4f4f4; padding: 2px 5px; border-radius: 4px; }
+        ul { margin-left: 20px; }
+        p { margin: 0.5em 0; }
+    </style>
+</head>
+<body>
+
+<h1>Comprehensive Machine Learning Course Review</h1>
+
+<h2>3. Supervised Learning and Linear Regression</h2>
+<p>Supervised learning is a type of machine learning in which we train a model using labeled data, meaning the data includes both input features and the corresponding target output. Linear regression is a foundational algorithm in supervised learning, used for predicting continuous values by modeling the relationship between input features and a numeric target.</p>
+
+<h3>3.1 Linear Regression Model</h3>
+<p>Linear regression assumes a linear relationship between input variables (features) and the output variable (target). The simplest form of linear regression, called simple linear regression, involves only one feature and is represented by:</p>
+<pre><code>y = wx + b</code></pre>
+<ul>
+    <li><strong>y:</strong> Predicted output, also known as the dependent variable.</li>
+    <li><strong>w:</strong> Weight or coefficient for the feature, representing the slope of the line.</li>
+    <li><strong>x:</strong> Input feature, also known as the independent variable.</li>
+    <li><strong>b:</strong> Bias term or intercept, which allows the line to shift up or down.</li>
+</ul>
+
+<h3>3.2 Example Problem: Predicting House Prices</h3>
+<p>Consider a problem where we want to predict house prices based on their square footage. Our data might look like this:</p>
+<table>
+    <tr><th>Square Footage</th><th>Price ($)</th></tr>
+    <tr><td>1500</td><td>200,000</td></tr>
+    <tr><td>1600</td><td>210,000</td></tr>
+    <tr><td>1700</td><td>230,000</td></tr>
+    <tr><td>1800</td><td>240,000</td></tr>
+</table>
+<p>In this scenario, <code>Square Footage</code> is our feature <code>x</code>, and <code>Price</code> is the target variable <code>y</code>. Our task is to find the best-fit line that predicts house prices based on the square footage.</p>
+
+<h3>3.3 Cost Function (Mean Squared Error)</h3>
+<p>The cost function is a measure of how well the model’s predictions match the actual data. For linear regression, the cost function is typically the Mean Squared Error (MSE), which calculates the average squared difference between predicted and actual values. The formula is:</p>
+<pre><code>J(w, b) = (1/2m) Σ (f<sub>w,b</sub>(x<sup>(i)</sup>) - y<sup>(i)</sup>)²</code></pre>
+<p>where:</p>
+<ul>
+    <li><strong>m:</strong> Number of training examples</li>
+    <li><strong>f<sub>w,b</sub>(x<sup>(i)</sup>):</strong> Model’s prediction for example <code>i</code></li>
+    <li><strong>y<sup>(i)</sup>:</strong> Actual output for example <code>i</code></li>
+</ul>
+<p>By minimizing this cost function, we aim to find values for <code>w</code> and <code>b</code> that allow the model to make accurate predictions.</p>
+
+<h3>3.4 Calculating the Gradient</h3>
+<p>The gradient is a vector that points in the direction of the greatest increase of the cost function. To minimize the cost, we move in the opposite direction of the gradient. For each parameter, the partial derivative with respect to <code>w</code> and <code>b</code> is:</p>
+<pre><code>
+∂J(w, b)/∂w = (1/m) Σ (f<sub>w,b</sub>(x) - y) * x
+∂J(w, b)/∂b = (1/m) Σ (f<sub>w,b</sub>(x) - y)
+</code></pre>
+
+<h3>3.5 Applications of Linear Regression</h3>
+<ul>
+    <li><strong>Real Estate:</strong> Predicting housing prices based on features like square footage, location, and number of bedrooms.</li>
+    <li><strong>Finance:</strong> Estimating stock prices based on historical data and other economic indicators.</li>
+    <li><strong>Healthcare:</strong> Predicting patient health outcomes based on medical history and other features.</li>
+</ul>
+<!-- Quiz Notes for 3. Supervised Learning and Linear Regression -->
+
+<h2>Quiz Notes for Section 3: Supervised Learning and Linear Regression</h2>
+<h3>1. Quiz Notes on Supervised Learning</h3>
+<ul>
+    <li><strong>I. Labelled Data:</strong> Supervised learning relies on labeled datasets where each input is paired with the correct output.</li>
+    <li><strong>II. Training and Testing Split:</strong> The dataset is often split into training and testing sets to evaluate model performance on unseen data.</li>
+    <li><strong>III. Common Algorithms:</strong> Includes linear regression, logistic regression, K-nearest neighbor, and support vector machines.</li>
+</ul>
+
+<h3>2. Quiz Notes on Linear Regression</h3>
+<ul>
+    <li><strong>I. Linearity Assumption:</strong> Assumes a linear relationship between features and the target variable, suitable for simpler, linearly separable data.</li>
+    <li><strong>II. Best Fit Line:</strong> The regression line represents the line that minimizes the error in prediction.</li>
+    <li><strong>III. Ordinary Least Squares (OLS):</strong> The method used in linear regression to minimize the sum of squared differences between predicted and actual values.</li>
+</ul>
+
+<hr>
+
+<h2>4. Gradient Descent and Multiple Linear Regression</h2>
+<p>In this section, we expand upon the concepts of linear regression and gradient descent, introducing models with multiple features (multiple linear regression) and advanced techniques like feature engineering.</p>
+
+<h3>4.1 Multiple Linear Regression</h3>
+<p>In many real-world problems, the target variable depends on more than one feature. For instance, house prices might depend on square footage, location, number of rooms, and age of the property. Multiple linear regression allows us to use multiple features in our model:</p>
+<pre><code>y = w<sub>1</sub>x<sub>1</sub> + w<sub>2</sub>x<sub>2</sub> + ... + w<sub>n</sub>x<sub>n</sub> + b</code></pre>
+<p>Each feature <code>x<sub>i</sub></code> has an associated weight <code>w<sub>i</sub></code>, which represents the feature’s influence on the target variable.</p>
+
+<h3>4.2 Feature Engineering</h3>
+<p><strong>Feature engineering</strong> is the process of transforming raw data into meaningful features that improve model performance. Examples include:</p>
+<ul>
+    <li><strong>Scaling:</strong> Transforming features to a standard scale, such as normalizing values between 0 and 1.</li>
+    <li><strong>Polynomial Features:</strong> Adding squared or cubic terms to capture non-linear relationships, e.g., <code>x<sup>2</sup></code> or <code>x<sup>3</sup></code>.</li>
+    <li><strong>Interaction Terms:</strong> Creating new features by multiplying pairs of features, capturing interactions between them.</li>
+</ul>
+
+<h3>4.3 Polynomial Regression</h3>
+<p>Polynomial regression is an extension of linear regression where we add polynomial terms to the model. For example, to capture a quadratic relationship, we could use:</p>
+<pre><code>y = w<sub>0</sub> + w<sub>1</sub>x + w<sub>2</sub>x²</code></pre>
+<p>Polynomial regression is useful when the relationship between features and the target is non-linear, but we want to use a linear model for simplicity.</p>
+
+<h3>4.4 Gradient Descent for Multiple Features</h3>
+<p>For multiple features, the gradient descent algorithm is similar to that for a single feature but updates each weight based on its partial derivative:</p>
+<pre><code>
+w<sub>i</sub> := w<sub>i</sub> - α * ∂J(w, b)/∂w<sub>i</sub>
+b := b - α * ∂J(w, b)/∂b
+</code></pre>
+<p>This process iteratively updates all weights to minimize the cost function.</p>
+<!-- Quiz Notes for 4. Gradient Descent and Overfitting -->
+
+<h2>Quiz Notes for Section 4: Gradient Descent and the Problem of Overfitting</h2>
+<h3>1. Quiz Notes on Overfitting vs. Underfitting</h3>
+<ul>
+    <li><strong>I. Overfitting:</strong> Occurs when a model learns the noise in the training data, resulting in poor generalization to new data.</li>
+    <li><strong>II. Underfitting:</strong> Occurs when the model is too simple to capture the underlying trend in data, leading to high error rates on both training and testing data.</li>
+</ul>
+
+<h3>2. Quiz Notes on Regularization Techniques to Combat Overfitting</h3>
+<ul>
+    <li><strong>I. L1 Regularization (Lasso):</strong> Adds a penalty equivalent to the absolute value of the magnitude of coefficients, encouraging sparsity.</li>
+    <li><strong>II. L2 Regularization (Ridge):</strong> Adds a penalty equivalent to the square of the coefficient magnitudes, discouraging large coefficients and thus reducing overfitting.</li>
+</ul>
+
+<hr>
+
+<h2>5. Classification and Logistic Regression</h2>
+<p>Classification is a type of supervised learning used for categorizing data into discrete classes. Logistic regression is a powerful classification algorithm commonly used for binary classification tasks (i.e., where the output is one of two classes).</p>
+
+<h3>5.1 The Logistic Function (Sigmoid Function)</h3>
+<p>Logistic regression uses the sigmoid function to map predictions to probabilities, allowing us to interpret the output as the likelihood of a data point belonging to a particular class. The sigmoid function, <code>σ(z)</code>, is defined as:</p>
+<pre><code>σ(z) = 1 / (1 + e<sup>-z</sup>)</code></pre>
+<p>where <code>z = wx + b</code>. The sigmoid function outputs values in the range [0, 1], so values close to 1 indicate a high probability of belonging to the positive class, while values close to 0 indicate the opposite.</p>
+
+<h3>5.2 Logistic Regression Model</h3>
+<p>In logistic regression, we model the probability of the positive class (e.g., class 1) as a function of the features:</p>
+<pre><code>P(y=1|x) = σ(w · x + b)</code></pre>
+<p>where <code>w · x</code> represents the dot product of the weights and features. The decision rule for logistic regression is to classify a data point as the positive class if <code>P(y=1|x) > 0.5</code>.</p>
+
+<h3>5.3 Logistic Regression Cost Function</h3>
+<p>The cost function for logistic regression, called the cross-entropy loss or log-loss, is designed to penalize incorrect predictions more heavily. For a single training example, the cost is:</p>
+<pre><code>
+J(w, b) = -[y log(f<sub>w,b</sub>(x)) + (1 - y) log(1 - f<sub>w,b</sub>(x))]
+</code></pre>
+<p>where:</p>
+<ul>
+    <li><code>y</code> is the actual class label (0 or 1)</li>
+    <li><code>f<sub>w,b</sub>(x)</code> is the predicted probability of the positive class</li>
+</ul>
+<p>Minimizing this cost function ensures that the model’s predicted probabilities align closely with the actual labels.</p>
+
+<h3>5.4 Applications of Logistic Regression</h3>
+<p>Logistic regression is widely used in various fields for binary classification tasks:</p>
+<ul>
+    <li><strong>Medical Diagnosis:</strong> Classifying patients as having a disease or not based on medical records and test results.</li>
+    <li><strong>Spam Detection:</strong> Predicting whether an email is spam or not based on word frequencies and metadata.</li>
+    <li><strong>Customer Churn Prediction:</strong> Determining if a customer will churn based on their usage and interaction history.</li>
+</ul>
+
+<h3>5.5 Example Calculation of Sigmoid Output</h3>
+<p>Let’s say our model’s prediction for a specific data point is <code>z = wx + b = 1.5</code>. Using the sigmoid function:</p>
+<pre><code>σ(1.5) = 1 / (1 + e<sup>-1.5</sup>) ≈ 0.82</code></pre>
+<p>This indicates an 82% probability that the data point belongs to the positive class.</p>
+<!-- Quiz Notes for 5. Classification and Logistic Regression -->
+
+<h2>Quiz Notes for Section 5: Classification and Logistic Regression</h2>
+<h3>1. Quiz Notes on Logistic Regression</h3>
+<ul>
+    <li><strong>I. Binary Classification:</strong> Logistic regression is commonly used for binary classification tasks, where the target variable has two possible outcomes.</li>
+    <li><strong>II. Sigmoid Function Output:</strong> Maps values to a probability range of 0 to 1, allowing interpretation of results as probabilities.</li>
+</ul>
+
+<h3>2. Quiz Notes on Logistic Regression Cost Function</h3>
+<ul>
+    <li><strong>I. Cross-Entropy Loss:</strong> Used as the cost function for logistic regression, penalizing the model for incorrect predictions by measuring the distance between predicted and actual probabilities.</li>
+    <li><strong>II. Mathematical Representation:</strong> The cost function for logistic regression is defined as:
+        <pre><code>J(w, b) = -(1/m) Σ [y log(f(x)) + (1 - y) log(1 - f(x))]</code></pre>
+    </li>
+</ul>
+
+<h3>3. Quiz Notes on Gradient Descent for Logistic Regression</h3>
+<ul>
+    <li><strong>I. Convergence to Global Minimum:</strong> Due to the convex shape of the logistic regression cost function, gradient descent will converge to the global minimum.</li>
+    <li><strong>II. Gradient Calculation:</strong> The gradient descent update rule is derived from the partial derivatives of the cost function with respect to the weights.</li>
+</ul>
+
+<hr>
+
+<h2>6. Multi-Class Classification</h2>
+<p>While logistic regression works well for binary classification, many real-world tasks involve more than two classes. Multi-class classification extends binary classification to problems where the target variable has more than two categories, such as classifying images of different animals (e.g., cats, dogs, birds).</p>
+
+<h3>6.1 One-vs-All (OvA) Strategy</h3>
+<p>One-vs-All, also known as One-vs-Rest, is a strategy for handling multi-class classification by decomposing the problem into multiple binary classification tasks. Here’s how it works:</p>
+<ul>
+    <li>For each class, train a binary classifier that distinguishes that class from all other classes.</li>
+    <li>If there are <code>K</code> classes, <code>K</code> binary classifiers are trained, each predicting whether a data point belongs to its respective class.</li>
+    <li>During prediction, the model selects the class with the highest confidence score across all binary classifiers.</li>
+</ul>
+<p>For example, in a three-class problem with labels <code>A</code>, <code>B</code>, and <code>C</code>:</p>
+<ul>
+    <li>Classifier 1: Predicts whether a sample is class <code>A</code> or not.</li>
+    <li>Classifier 2: Predicts whether a sample is class <code>B</code> or not.</li>
+    <li>Classifier 3: Predicts whether a sample is class <code>C</code> or not.</li>
+</ul>
+
+<h3>6.2 Softmax Regression</h3>
+<p>Softmax regression, also called multinomial logistic regression, is a direct extension of logistic regression for multi-class classification. It uses the softmax function to assign probabilities to each class, ensuring they sum to 1.</p>
+<pre><code>σ(z<sub>i</sub>) = e<sup>z<sub>i</sub></sup> / Σ e<sup>z<sub>j</sub></sup></code></pre>
+<p>where:</p>
+<ul>
+    <li><strong>z<sub>i</sub>:</strong> The score for class <code>i</code>.</li>
+    <li><strong>Σ e<sup>z<sub>j</sub></sup>:</strong> Sum of exponentiated scores across all classes.</li>
+</ul>
+<p>This formula ensures that the output probabilities are between 0 and 1 and add up to 1. The model predicts the class with the highest probability.</p>
+
+<h3>6.3 Applications of Multi-Class Classification</h3>
+<ul>
+    <li><strong>Image Classification:</strong> Identifying objects in images, such as distinguishing among types of animals or types of vehicles.</li>
+    <li><strong>Text Categorization:</strong> Classifying documents into categories like news, sports, entertainment, or politics.</li>
+    <li><strong>Medical Diagnosis:</strong> Classifying patient conditions into multiple possible diagnoses based on medical data.</li>
+</ul>
+
+<h3>6.4 Example Calculation with Softmax</h3>
+<p>Suppose a model computes the following scores for three classes (A, B, and C):</p>
+<ul>
+    <li><code>z<sub>A</sub> = 2.0</code></li>
+    <li><code>z<sub>B</sub> = 1.0</code></li>
+    <li><code>z<sub>C</sub> = 0.1</code></li>
+</ul>
+<p>To calculate the probability of each class, we first compute the exponentials of each score and normalize them:</p>
+<pre><code>
+P(A) = e<sup>2.0</sup> / (e<sup>2.0</sup> + e<sup>1.0</sup> + e<sup>0.1</sup>) ≈ 0.58
+P(B) = e<sup>1.0</sup> / (e<sup>2.0</sup> + e<sup>1.0</sup> + e<sup>0.1</sup>) ≈ 0.26
+P(C) = e<sup>0.1</sup> / (e<sup>2.0</sup> + e<sup>1.0</sup> + e<sup>0.1</sup>) ≈ 0.16
+</code></pre>
+<p>The model would classify the sample as class A, as it has the highest probability.</p>
+
+<hr>
+
+<h2>7. K-Nearest Neighbor (KNN) Classifier</h2>
+<p>K-Nearest Neighbor (KNN) is an instance-based, non-parametric learning algorithm used for classification and regression tasks. It is called "instance-based" because it relies on the entire dataset to make predictions, rather than learning a specific model during training. KNN works by finding the <code>K</code> data points closest to a query point and using them to make a prediction.</p>
+
+<h3>7.1 Definition and Steps of KNN</h3>
+<p>KNN is a "lazy learner" because it doesn’t learn an explicit model. Instead, it memorizes the training dataset and makes predictions by examining the closest examples to the input data point. The algorithm’s steps are:</p>
+<ol>
+    <li>Choose the value of <code>K</code>, which is the number of nearest neighbors to consider.</li>
+    <li>For each input point, calculate the distance to every other point in the training set.</li>
+    <li>Identify the <code>K</code> closest points based on the chosen distance metric.</li>
+    <li>For classification: Assign the class label that appears most frequently among the neighbors. For regression: Take the average of the neighbors' values.</li>
+</ol>
+
+<h3>7.2 Distance Metrics in KNN</h3>
+<p>KNN can use various distance metrics to measure the "closeness" of data points. Commonly used metrics include:</p>
+
+<h4>7.2.1 Euclidean Distance</h4>
+<p>Euclidean distance measures the straight-line distance between two points in Euclidean space. It is the most commonly used metric for continuous features and is calculated as:</p>
+<pre><code>d = √Σ(x<sub>i</sub> - y<sub>i</sub>)²</code></pre>
+<p>where <code>x</code> and <code>y</code> are two points, and <code>x<sub>i</sub></code> and <code>y<sub>i</sub></code> are their coordinates in each dimension.</p>
+
+<h4>7.2.2 Manhattan Distance</h4>
+<p>Manhattan distance, also known as "taxicab" distance, calculates the sum of the absolute differences between the coordinates of two points:</p>
+<pre><code>d = Σ|x<sub>i</sub> - y<sub>i</sub>|</code></pre>
+<p>This metric is suitable for grid-like data structures where movements are restricted to horizontal and vertical paths.</p>
+
+<h4>7.2.3 Minkowski Distance</h4>
+<p>The Minkowski distance is a generalized form of the Euclidean and Manhattan distances. It introduces a parameter <code>p</code> that allows for varying the distance metric:</p>
+<pre><code>d = (Σ|x<sub>i</sub> - y<sub>i</sub>|<sup>p</sup>)<sup>1/p</sup></code></pre>
+<p>For <code>p=1</code>, it becomes the Manhattan distance, and for <code>p=2</code>, it becomes the Euclidean distance.</p>
+
+<h4>7.2.4 Cosine Similarity</h4>
+<p>Cosine similarity measures the angle between two vectors, making it particularly useful for text data represented as word vectors:</p>
+<pre><code>cos(θ) = (x · y) / (||x|| ||y||)</code></pre>
+<p>Cosine similarity is often converted to a distance measure by using <code>1 - cos(θ)</code>.</p>
+
+<h3>7.3 Example Calculation with K=3</h3>
+<p>Consider a dataset with two classes, A and B, and the following points:</p>
+<table>
+    <tr><th>Point</th><th>x<sub>1</sub></th><th>x<sub>2</sub></th><th>Class</th></tr>
+    <tr><td>P1</td><td>1</td><td>2</td><td>A</td></tr>
+    <tr><td>P2</td><td>2</td><td>3</td><td>A</td></tr>
+    <tr><td>P3</td><td>3</td><td>3</td><td>B</td></tr>
+    <tr><td>P4</td><td>4</td><td>5</td><td>B</td></tr>
+</table>
+<p>To classify a new point, <code>P = (2.5, 2.5)</code>, using K=3 and Euclidean distance:</p>
+<ol>
+    <li>Calculate the Euclidean distance from <code>P</code> to each point:</li>
+    <ul>
+        <li>d(P, P1) = √((2.5 - 1)² + (2.5 - 2)²) = 1.58</li>
+        <li>d(P, P2) = √((2.5 - 2)² + (2.5 - 3)²) = 0.71</li>
+        <li>d(P, P3) = √((2.5 - 3)² + (2.5 - 3)²) = 0.71</li>
+        <li>d(P, P4) = √((2.5 - 4)² + (2.5 - 5)²) = 2.5</li>
+    </ul>
+    <li>Select the 3 closest points: P2 (A), P3 (B), and P1 (A).</li>
+    <li>The most common class among the neighbors is A, so <code>P</code> is classified as class A.</li>
+</ol>
+
+<h3>7.4 Applications of KNN</h3>
+<ul>
+    <li><strong>Image Recognition:</strong> Using similarity-based classification for visual recognition tasks.</li>
+    <li><strong>Recommender Systems:</strong> Suggesting items based on user similarity.</li>
+    <li><strong>Medical Diagnosis:</strong> Classifying health conditions based on patient history and symptoms.</li>
+</ul>
+
+<!-- Quiz Notes for 7. K-Nearest Neighbor (KNN) -->
+
+<h2>Quiz Notes for Section 7: K-Nearest Neighbor (KNN)</h2>
+<h3>1. Quiz Notes on Choosing the Value of K</h3>
+<ul>
+    <li><strong>I. Small K Value:</strong> Leads to a more complex model with high variance, potentially causing overfitting.</li>
+    <li><strong>II. Large K Value:</strong> Creates a simpler model with higher bias, which may underfit the data by smoothing over finer details.</li>
+    <li><strong>III. Optimal K Value:</strong> Typically chosen using cross-validation to find a balance between variance and bias.</li>
+</ul>
+
+<h3>2. Quiz Notes on Decision Boundaries in KNN</h3>
+<p>Decision boundaries created by KNN are non-linear and highly dependent on the distribution of data. With smaller values of K, the boundaries are more flexible and closely follow the data points. Larger values of K lead to smoother boundaries.</p>
+
+<h3>3. Quiz Notes on Computational Complexity</h3>
+<p>KNN has high computational complexity during the prediction phase, as it must compute the distance between the test point and every point in the training set.</p>
+
+<hr>
+
+<h2>8. Bayesian Classifier</h2>
+<p>Bayesian classifiers are probabilistic models that predict the class of a data point based on the probability distribution of features given each class. They use Bayes' theorem to compute the posterior probability of each class given the data, allowing for robust, interpretable classifications.</p>
+
+<h3>8.1 Bayes’ Theorem</h3>
+<p>Bayes' theorem expresses the relationship between conditional probabilities. For two events, A and B, Bayes' theorem states:</p>
+<pre><code>P(A|B) = (P(B|A) * P(A)) / P(B)</code></pre>
+<p>where:</p>
+<ul>
+    <li><strong>P(A|B):</strong> Posterior probability of event A given evidence B.</li>
+    <li><strong>P(B|A):</strong> Likelihood of observing B given that A is true.</li>
+    <li><strong>P(A):</strong> Prior probability of event A, independent of B.</li>
+    <li><strong>P(B):</strong> Marginal probability of event B.</li>
+</ul>
+
+<h3>8.2 Naive Bayes Classifier</h3>
+<p>The Naive Bayes classifier applies Bayes’ theorem with the assumption that features are conditionally independent given the class. Despite this strong assumption, Naive Bayes performs well on many tasks, especially with text data. The model calculates the probability of each class <code>C</code> as:</p>
+<pre><code>P(C|X) ∝ P(C) * Π P(X<sub>i</sub>|C)</code></pre>
+<p>where <code>P(C)</code> is the prior probability of class <code>C</code> and <code>P(X<sub>i</sub>|C)</code> is the likelihood of feature <code>X<sub>i</sub></code> given class <code>C</code>.</p>
+
+<h3>8.3 Example Calculation with Naive Bayes</h3>
+<p>Consider a spam classifier with the following simplified training data:</p>
+<table>
+    <tr><th>Email</th><th>Words: "Win"</th><th>Words: "Lottery"</th><th>Class</th></tr>
+    <tr><td>E1</td><td>Yes</td><td>Yes</td><td>Spam</td></tr>
+    <tr><td>E2</td><td>No</td><td>Yes</td><td>Spam</td></tr>
+    <tr><td>E3</td><td>No</td><td>No</td><td>Not Spam</td></tr>
+    <tr><td>E4</td><td>Yes</td><td>No</td><td>Not Spam</td></tr>
+</table>
+<p>To classify a new email containing the word "Win" but not "Lottery," we calculate:</p>
+<ul>
+    <li>Prior probabilities:
+        <ul>
+            <li>P(Spam) = 2/4 = 0.5</li>
+            <li>P(Not Spam) = 2/4 = 0.5</li>
+        </ul>
+    </li>
+    <li>Likelihoods:
+        <ul>
+            <li>P(Win | Spam) = 1/2 = 0.5</li>
+            <li>P(Lottery | Spam) = 1</li>
+            <li>P(Win | Not Spam) = 1/2 = 0.5</li>
+            <li>P(Lottery | Not Spam) = 0</li>
+        </ul>
+    </li>
+</ul>
+<p>To classify the new email, we use Bayes' theorem:</p>
+<pre><code>P(Spam | Win, Not Lottery) ∝ P(Spam) * P(Win | Spam) * P(Not Lottery | Spam)</code></pre>
+<p>Since <code>P(Not Lottery | Spam)</code> is simply <code>1 - P(Lottery | Spam)</code>, this allows us to complete the calculation, choosing the class with the highest posterior probability.</p>
+
+<h3>8.4 Types of Naive Bayes</h3>
+<p>There are several types of Naive Bayes classifiers, each designed for different data distributions:</p>
+<ul>
+    <li><strong>Gaussian Naive Bayes:</strong> Assumes continuous features follow a Gaussian distribution, commonly used for numerical data.</li>
+    <li><strong>Multinomial Naive Bayes:</strong> Suitable for discrete data, particularly word counts in text classification.</li>
+    <li><strong>Bernoulli Naive Bayes:</strong> Assumes binary features, making it suitable for binary-valued feature vectors, like word presence/absence.</li>
+</ul>
+
+<h3>8.5 Applications of Naive Bayes</h3>
+<ul>
+    <li><strong>Spam Filtering:</strong> Classifying emails as spam or not spam based on word frequencies.</li>
+    <li><strong>Sentiment Analysis:</strong> Identifying the sentiment of reviews or social media posts as positive or negative.</li>
+    <li><strong>Document Categorization:</strong> Sorting articles or documents into categories like sports, politics, or technology.</li>
+</ul>
+
+<!-- Quiz Notes for 8. Bayesian Classifier -->
+
+<h2>Quiz Notes for Section 8: Bayesian Classifier</h2>
+<h3>1. Quiz Notes on Bayes' Theorem in Classification</h3>
+<p>In the context of classification, Bayes' theorem allows us to calculate the probability of a data point belonging to each class. The class with the highest posterior probability is chosen as the predicted class.</p>
+
+<h3>2. Quiz Notes on Independence Assumption in Naive Bayes</h3>
+<ul>
+    <li><strong>I. Naive Assumption:</strong> Naive Bayes assumes that all features are independent given the class label. While this assumption is rarely true, it simplifies calculations and often provides good results.</li>
+    <li><strong>II. Implications:</strong> The independence assumption allows Naive Bayes to perform well on high-dimensional data and text data where features (e.g., words) are often conditionally independent.</li>
+</ul>
+
+<h3>3. Quiz Notes on Calculation of Posterior Probabilities</h3>
+<p>For each class <code>C</code> and a data point <code>X</code> with features <code>X₁, X₂, ..., Xₙ</code>, the posterior probability is calculated as:</p>
+<pre><code>P(C|X) ∝ P(C) * Π P(X<sub>i</sub>|C)</code></pre>
+<p>This approach allows Naive Bayes to efficiently compute probabilities by combining the likelihood of each feature given the class.</p>
+
+<hr>
+
+<h2>9. Neural Networks</h2>
+<p>Neural networks are inspired by the structure of the human brain, where neurons process information and send signals to one another. In machine learning, neural networks consist of layers of artificial neurons that transform input data through learned weights and biases, enabling the model to capture complex patterns and relationships.</p>
+
+<h3>9.1 Perceptron: The Basic Unit of Neural Networks</h3>
+<p>The perceptron is the fundamental building block of neural networks. It performs a linear transformation on input data and applies an activation function to produce an output:</p>
+<pre><code>output = activation(w · x + b)</code></pre>
+<p>where:</p>
+<ul>
+    <li><strong>w:</strong> Weight vector, representing the importance of each feature.</li>
+    <li><strong>x:</strong> Input feature vector.</li>
+    <li><strong>b:</strong> Bias term, allowing the perceptron to shift the decision boundary.</li>
+</ul>
+<p>If the output is greater than a threshold, the perceptron produces a positive class; otherwise, it produces a negative class.</p>
+
+<h3>9.2 Multi-Layer Perceptron (MLP)</h3>
+<p>Multi-Layer Perceptrons (MLPs) are neural networks that consist of multiple layers of perceptrons, or neurons, organized into three types of layers:</p>
+<ul>
+    <li><strong>Input Layer:</strong> Receives the raw data.</li>
+    <li><strong>Hidden Layers:</strong> Layers between the input and output layers that enable the network to learn complex patterns.</li>
+    <li><strong>Output Layer:</strong> Produces the final prediction. For classification, it often includes a softmax or sigmoid activation to generate probabilities.</li>
+</ul>
+<p>MLPs are powerful because they can approximate non-linear functions by stacking multiple layers and introducing non-linear activation functions.</p>
+
+<h3>9.3 Feedforward Propagation</h3>
+<p>Feedforward propagation is the process of moving data forward through the network, from the input layer to the output layer. At each layer, the following steps occur:</p>
+<ol>
+    <li>Calculate the weighted sum of inputs.</li>
+    <li>Add a bias term.</li>
+    <li>Apply an activation function to introduce non-linearity.</li>
+</ol>
+<p>This process transforms the data as it passes through each layer, enabling the network to capture complex patterns and relationships within the data.</p>
+
+<h3>9.4 Activation Functions</h3>
+<p>Activation functions are essential in neural networks because they introduce non-linearity, allowing the network to model complex, non-linear patterns. Common activation functions include:</p>
+
+<h4>9.4.1 Sigmoid Activation</h4>
+<p>The sigmoid function outputs values between 0 and 1, making it suitable for binary classification. It is defined as:</p>
+<pre><code>σ(z) = 1 / (1 + e<sup>-z</sup>)</code></pre>
+<p>The sigmoid function is useful in the output layer for binary classification problems. However, it can lead to vanishing gradients during backpropagation, making training deep networks challenging.</p>
+
+<h4>9.4.2 ReLU (Rectified Linear Unit)</h4>
+<p>ReLU is the most commonly used activation function in hidden layers due to its computational efficiency and ability to alleviate the vanishing gradient problem. It is defined as:</p>
+<pre><code>ReLU(z) = max(0, z)</code></pre>
+<p>ReLU outputs 0 for negative values and the input itself for positive values, allowing the network to learn faster and achieve better performance in deeper architectures.</p>
+
+<h4>9.4.3 Tanh (Hyperbolic Tangent)</h4>
+<p>The tanh function outputs values between -1 and 1, making it zero-centered and often preferable to sigmoid in hidden layers:</p>
+<pre><code>tanh(z) = (e<sup>z</sup> - e<sup>-z</sup>) / (e<sup>z</sup> + e<sup>-z</sup>)</code></pre>
+<p>While tanh addresses some issues of the sigmoid function, it can still suffer from vanishing gradients in deep networks.</p>
+
+<h4>9.4.4 Softmax Activation</h4>
+<p>The softmax function is used in the output layer for multi-class classification problems. It converts raw scores into probabilities, ensuring that all outputs sum to 1:</p>
+<pre><code>softmax(z<sub>i</sub>) = e<sup>z<sub>i</sub></sup> / Σ e<sup>z<sub>j</sub></sup></code></pre>
+
+<h3>9.5 Types of Neural Networks</h3>
+<ul>
+    <li><strong>Feedforward Neural Networks (FNN):</strong> Data flows in one direction, from the input layer to the output layer. Often used for simple classification tasks.</li>
+    <li><strong>Convolutional Neural Networks (CNN):</strong> Primarily used for image data, CNNs apply filters to capture spatial relationships and patterns in the data.</li>
+    <li><strong>Recurrent Neural Networks (RNN):</strong> Designed for sequential data, such as time series or natural language, RNNs have connections that cycle, allowing them to retain memory of previous inputs.</li>
+</ul>
+
+<h3>9.6 Applications of Neural Networks</h3>
+<ul>
+    <li><strong>Image Recognition:</strong> Classifying objects in images, detecting faces, and recognizing handwriting.</li>
+    <li><strong>Natural Language Processing:</strong> Translating languages, analyzing sentiment, and generating text.</li>
+    <li><strong>Medical Diagnosis:</strong> Identifying diseases based on medical images or patient data.</li>
+</ul>
+
+<!-- Quiz Notes for 9. Neural Networks -->
+
+<h2>Quiz Notes for Section 9: Neural Networks</h2>
+<h3>1. Quiz Notes on Layers and Depth in Neural Networks</h3>
+<ul>
+    <li><strong>I. Hidden Layers:</strong> The number of hidden layers and neurons in each layer determine the network’s capacity to learn complex patterns.</li>
+    <li><strong>II. Deep Neural Networks:</strong> Networks with more than one hidden layer are called deep neural networks and can model highly complex functions.</li>
+</ul>
+
+<h3>2. Quiz Notes on Key Concepts in Neural Networks</h3>
+<ul>
+    <li><strong>I. Weights and Biases:</strong> Weights control the influence of each input, and biases allow each neuron’s activation to be shifted, making the network more flexible.</li>
+    <li><strong>II. Activation Functions:</strong> Non-linear functions that allow the network to learn complex patterns beyond linear relationships.</li>
+</ul>
+
+<h3>3. Quiz Notes on Overfitting and Regularization in Neural Networks</h3>
+<p>Deep networks are prone to overfitting, especially on small datasets. Common regularization techniques include dropout, L2 regularization, and early stopping.</p>
+
+
+<h2>10. Neural Networks Training</h2>
+<p>Training neural networks involves updating the network's weights and biases to minimize the prediction error on the training data. This process is achieved through backpropagation and gradient descent.</p>
+
+<h3>10.1 Loss Functions</h3>
+<p>The loss function quantifies the error between the predicted output and the actual output, guiding the network during training. Common loss functions include:</p>
+<ul>
+    <li><strong>Mean Squared Error (MSE):</strong> Used for regression tasks, it calculates the average squared difference between predictions and actual values.</li>
+    <li><strong>Cross-Entropy Loss:</strong> Commonly used for classification, it measures the distance between predicted probabilities and true labels.</li>
+</ul>
+
+<h3>10.2 Backpropagation</h3>
+<p>Backpropagation is an algorithm that computes the gradient of the loss function with respect to each weight in the network, allowing the model to learn by adjusting weights in the direction that reduces the loss. The process includes:</p>
+<ol>
+    <li><strong>Forward Pass:</strong> Calculate the output by passing data through the network.</li>
+    <li><strong>Loss Calculation:</strong> Compare the prediction with the actual output to compute the loss.</li>
+    <li><strong>Backward Pass:</strong> Calculate gradients of the loss with respect to each weight using the chain rule.</li>
+    <li><strong>Weight Update:</strong> Adjust weights based on the calculated gradients and learning rate.</li>
+</ol>
+
+<h3>10.3 Gradient Descent Variants</h3>
+<p>Several variants of gradient descent are used in training neural networks to improve convergence speed and stability:</p>
+
+<h4>10.3.1 Batch Gradient Descent</h4>
+<p>In batch gradient descent, the gradient is calculated over the entire dataset, and weights are updated once per epoch. While stable, it can be computationally expensive for large datasets.</p>
+
+<h4>10.3.2 Stochastic Gradient Descent (SGD)</h4>
+<p>SGD updates weights for each training example, leading to faster updates but more variance in the optimization path. This variance can help the model escape local minima but may cause instability in training.</p>
+
+<h4>10.3.3 Mini-Batch Gradient Descent</h4>
+<p>A compromise between batch and stochastic gradient descent, mini-batch gradient descent divides the data into small batches, updating weights after each batch. It is widely used for training neural networks as it combines the stability of batch and the speed of SGD.</p>
+
+<h3>10.4 Learning Rate and its Importance</h3>
+<p>The learning rate controls the step size of each update. If it’s too high, the model may oscillate and fail to converge. If it’s too low, the model may converge too slowly. Often, techniques like learning rate decay or adaptive learning rates are used to improve training.</p>
+
+<h3>10.5 Regularization Techniques</h3>
+<p>Regularization helps prevent overfitting by discouraging the model from relying too heavily on any one feature or subset of features:</p>
+<ul>
+    <li><strong>L2 Regularization (Ridge):</strong> Adds a penalty proportional to the square of the weights, encouraging smaller weights.</li>
+    <li><strong>L1 Regularization (Lasso):</strong> Adds a penalty proportional to the absolute values of the weights, encouraging sparsity (some weights become zero).</li>
+    <li><strong>Dropout:</strong> Randomly drops neurons during training, preventing the network from becoming overly reliant on specific neurons.</li>
+</ul>
+
+<h3>10.6 Optimization Algorithms</h3>
+<p>Advanced optimization algorithms improve upon standard gradient descent, especially for training deep networks:</p>
+<ul>
+    <li><strong>Momentum:</strong> Accelerates gradient descent by adding a fraction of the previous update, helping to overcome local minima.</li>
+    <li><strong>AdaGrad:</strong> Adjusts learning rates for each parameter based on historical gradients, allowing more movement in less frequently updated parameters.</li>
+    <li><strong>Adam (Adaptive Moment Estimation):</strong> Combines momentum and AdaGrad, making it one of the most popular optimizers for deep learning due to its adaptive learning rate and efficient updates.</li>
+</ul>
+
+<h3>10.7 Example Training Process</h3>
+<p>Consider a neural network trained to classify handwritten digits from the MNIST dataset. The training process involves:</p>
+<ol>
+    <li>Initial weight and bias assignment.</li>
+    <li>Using forward propagation to obtain predictions.</li>
+    <li>Calculating cross-entropy loss between predicted and actual labels.</li>
+    <li>Applying backpropagation to compute gradients for each weight and bias.</li>
+    <li>Updating weights using a variant of gradient descent (e.g., mini-batch gradient descent with Adam optimizer).</li>
+    <li>Repeating steps 2-5 for multiple epochs until the model achieves satisfactory accuracy on validation data.</li>
+</ol>
+
+<h3>10.8 Applications of Neural Network Training Techniques</h3>
+<ul>
+    <li><strong>Image Classification:</strong> Training CNNs on large datasets like ImageNet to classify images into thousands of categories.</li>
+    <li><strong>Language Translation:</strong> Training RNNs or Transformers on large text corpora for machine translation tasks.</li>
+    <li><strong>Speech Recognition:</strong> Training neural networks on audio data to transcribe spoken language into text.</li>
+</ul>
+
+<hr>
+
+<h2>Homework Summaries</h2>
+
+<h1>HW1: Linear Regression</h1>
+<p>In this assignment, you implemented linear regression to predict restaurant profits based on city populations. Key tasks included computing cost, performing gradient descent, and visualizing the regression line.</p>
+
+<h2>1. Importing Libraries and Loading Data</h2>
+<p>The assignment begins by importing essential libraries such as <code>numpy</code> for numerical calculations and <code>matplotlib</code> for data visualization.</p>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+</code></pre>
+
+<h3>Loading Data</h3>
+<p>To load the data, we use <code>numpy</code> to load it into arrays, separating features (X) and target values (y). Here’s an example of loading and displaying the data:</p>
+<pre><code>data = np.loadtxt('data.txt', delimiter=',')
+X = data[:, 0]
+y = data[:, 1]
+m = len(y)  # Number of training examples
+
+print(f"First 5 examples:\nX: {X[:5]}\ny: {y[:5]}")
+</code></pre>
+<p>After loading the data, we can visualize it to understand the relationship between the input (e.g., population) and the output (e.g., profit).</p>
+
+<h3>Data Visualization</h3>
+<p>The code below uses <code>matplotlib</code> to plot the data points:</p>
+<pre><code>plt.scatter(X, y, marker='x', color='red')
+plt.xlabel("Population (10,000s)")
+plt.ylabel("Profit ($10,000s)")
+plt.title("Profit vs. Population")
+plt.show()
+</code></pre>
+<p>This scatter plot helps us understand the linear relationship between population and profit, which linear regression aims to model.</p>
+
+<h2>2. Cost Function</h2>
+<p>The cost function, or Mean Squared Error (MSE), quantifies the error between predicted and actual values. It is defined as:</p>
+<pre><code>J(w, b) = (1/2m) * Σ (f<sub>w,b</sub>(x<sup>(i)</sup>) - y<sup>(i)</sup>)²</code></pre>
+<p>In Python, we implement this as a function that calculates the cost based on current weights and bias:</p>
+<pre><code>def compute_cost(X, y, w, b):
+    m = len(y)
+    cost = (1 / (2 * m)) * np.sum((X * w + b - y) ** 2)
+    return cost
+</code></pre>
+<p>The <code>compute_cost</code> function calculates the average squared error of predictions, giving a single value that represents model performance.</p>
+
+<h2>3. Gradient Descent Function</h2>
+<p>Gradient descent is an optimization algorithm that updates the weights and bias iteratively to minimize the cost function. For linear regression, the update rules are:</p>
+<pre><code>
+w := w - α * (1/m) * Σ (f<sub>w,b</sub>(x) - y) * x
+b := b - α * (1/m) * Σ (f<sub>w,b</sub>(x) - y)
+</code></pre>
+<p>In Python, the gradient descent function calculates gradients and updates <code>w</code> and <code>b</code> iteratively:</p>
+<pre><code>def gradient_descent(X, y, w, b, alpha, num_iters):
+    m = len(y)
+    for i in range(num_iters):
+        # Compute predictions
+        predictions = X * w + b
+        # Calculate gradients
+        dw = (1 / m) * np.sum((predictions - y) * X)
+        db = (1 / m) * np.sum(predictions - y)
+        # Update parameters
+        w -= alpha * dw
+        b -= alpha * db
+        # Print cost for every 100 iterations
+        if i % 100 == 0:
+            print(f"Iteration {i}: Cost {compute_cost(X, y, w, b)}")
+    return w, b
+</code></pre>
+<p>Here, <code>alpha</code> is the learning rate, which controls the step size of each update. <code>num_iters</code> is the number of iterations for training. The function prints the cost periodically to track progress.</p>
+
+<h2>4. Model Training and Parameter Optimization</h2>
+<p>To train the model, we initialize the weights and bias and call the <code>gradient_descent</code> function with suitable parameters. Example:</p>
+<pre><code>initial_w = 0
+initial_b = 0
+alpha = 0.01
+num_iters = 1500
+
+# Train the model
+w, b = gradient_descent(X, y, initial_w, initial_b, alpha, num_iters)
+print(f"Optimized parameters: w = {w}, b = {b}")
+</code></pre>
+<p>After training, we get optimized parameters <code>w</code> and <code>b</code> that minimize the cost function and fit the data well.</p>
+
+<h2>5. Prediction and Visualization of the Regression Line</h2>
+<p>With the optimized weights and bias, we can make predictions for new data points. Here’s a function to predict values and visualize the regression line:</p>
+<pre><code>def predict(X, w, b):
+    return X * w + b
+
+# Plot data and regression line
+plt.scatter(X, y, marker='x', color='red')
+plt.plot(X, predict(X, w, b), color='blue')
+plt.xlabel("Population (10,000s)")
+plt.ylabel("Profit ($10,000s)")
+plt.title("Linear Regression Fit")
+plt.show()
+</code></pre>
+<p>The function <code>predict</code> returns predicted values based on the learned parameters, and the plot shows the regression line over the data points, visualizing the model’s fit.</p>
+
+<h2>6. Analysis Summary</h2>
+<ul>
+    <li><strong>Cost Function:</strong> Computes the error between predictions and actual values, helping to evaluate model performance.</li>
+    <li><strong>Gradient Descent:</strong> Optimizes the weights and bias by iteratively reducing the cost function.</li>
+    <li><strong>Visualization:</strong> Data and regression line visualizations provide insights into the linear relationship and model fit.</li>
+</ul>
+<p>This linear regression implementation provides a foundation for understanding supervised learning and optimization in machine learning.</p>
+
+<h1>Homework 2: Logistic Regression Analysis</h1>
+<p>This section covers the key concepts, Python code, and implementation details from the logistic regression homework assignment. The main tasks include implementing the sigmoid function, defining the cost function (cross-entropy loss), applying gradient descent, and incorporating regularization to prevent overfitting.</p>
+
+<h2>1. Importing Libraries and Loading Data</h2>
+<p>The assignment begins by importing essential libraries such as <code>numpy</code> for numerical calculations and <code>matplotlib</code> for data visualization. Logistic regression requires data preprocessing, so additional libraries like <code>scikit-learn</code> can also be helpful for splitting data and scaling features.</p>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+</code></pre>
+
+<h3>Loading Data and Data Preprocessing</h3>
+<p>We load and split the data into training and testing sets. Standard scaling is often applied to features to improve convergence during gradient descent:</p>
+<pre><code>data = np.loadtxt('data_logistic.txt', delimiter=',')
+X = data[:, :-1]
+y = data[:, -1]
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Standardize features
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+</code></pre>
+<p>Here, we split the data into training and testing sets to evaluate model performance on unseen data. Standardization helps gradient descent converge more efficiently by giving each feature a similar scale.</p>
+
+<h2>2. Sigmoid Function</h2>
+<p>The sigmoid function is a key component in logistic regression as it converts the linear combination of inputs into a probability value between 0 and 1. It is defined as:</p>
+<pre><code>σ(z) = 1 / (1 + e<sup>-z</sup>)</code></pre>
+<p>In Python, we implement the sigmoid function as follows:</p>
+<pre><code>def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+</code></pre>
+<p>The sigmoid function is applied to the linear combination of weights and features, allowing the model to interpret the output as a probability.</p>
+
+<h2>3. Cost Function (Cross-Entropy Loss)</h2>
+<p>The cost function for logistic regression, known as cross-entropy loss or log-loss, quantifies the error between the predicted probabilities and the true labels. It is defined as:</p>
+<pre><code>J(w, b) = -(1/m) * Σ [y log(f<sub>w,b</sub>(x)) + (1 - y) log(1 - f<sub>w,b</sub>(x))]</code></pre>
+<p>In Python, the cost function is implemented as follows:</p>
+<pre><code>def compute_cost(X, y, w, b):
+    m = len(y)
+    predictions = sigmoid(np.dot(X, w) + b)
+    cost = -(1/m) * np.sum(y * np.log(predictions) + (1 - y) * np.log(1 - predictions))
+    return cost
+</code></pre>
+<p>This function calculates the cost by summing the error over all training examples. Minimizing this cost will improve the model’s accuracy on the training data.</p>
+
+<h2>4. Gradient Descent for Logistic Regression</h2>
+<p>Gradient descent updates the weights and bias iteratively to minimize the cross-entropy loss. For logistic regression, the gradients for the weights and bias are calculated as follows:</p>
+<pre><code>
+dw = (1/m) * Σ (f<sub>w,b</sub>(x) - y) * x
+db = (1/m) * Σ (f<sub>w,b</sub>(x) - y)
+</code></pre>
+<p>In Python, the gradient descent function calculates gradients and updates the parameters:</p>
+<pre><code>def gradient_descent(X, y, w, b, alpha, num_iters):
+    m = len(y)
+    for i in range(num_iters):
+        # Compute predictions
+        predictions = sigmoid(np.dot(X, w) + b)
+        # Calculate gradients
+        dw = (1 / m) * np.dot(X.T, (predictions - y))
+        db = (1 / m) * np.sum(predictions - y)
+        # Update parameters
+        w -= alpha * dw
+        b -= alpha * db
+        # Print cost for every 100 iterations
+        if i % 100 == 0:
+            print(f"Iteration {i}: Cost {compute_cost(X, y, w, b)}")
+    return w, b
+</code></pre>
+<p>Here, <code>alpha</code> is the learning rate, and <code>num_iters</code> is the number of iterations. This function optimizes the weights and bias by reducing the cost function.</p>
+
+<h2>5. Regularization (L2 Regularization)</h2>
+<p>Regularization helps prevent overfitting by adding a penalty term to the cost function, discouraging large weights. L2 regularization, also known as Ridge regularization, is commonly used in logistic regression and adds a penalty proportional to the sum of the squared weights:</p>
+<pre><code>J(w, b) = -(1/m) * Σ [y log(f<sub>w,b</sub>(x)) + (1 - y) log(1 - f<sub>w,b</sub>(x))] + λ/(2m) * Σ w²</code></pre>
+<p>In Python, we modify the cost function to include regularization:</p>
+<pre><code>def compute_cost_reg(X, y, w, b, lambda_):
+    m = len(y)
+    predictions = sigmoid(np.dot(X, w) + b)
+    cost = -(1/m) * np.sum(y * np.log(predictions) + (1 - y) * np.log(1 - predictions))
+    reg_cost = cost + (lambda_ / (2 * m)) * np.sum(w ** 2)
+    return reg_cost
+</code></pre>
+<p>The <code>lambda_</code> parameter controls the regularization strength. Higher values of <code>lambda_</code> result in stronger regularization, which can help reduce overfitting but may also decrease model flexibility.</p>
+
+<h2>6. Model Training and Prediction</h2>
+<p>To train the model, we initialize the weights and bias, set the learning rate, and call the gradient descent function with regularization. Here’s an example:</p>
+<pre><code>initial_w = np.zeros(X_train.shape[1])
+initial_b = 0
+alpha = 0.01
+num_iters = 1000
+lambda_ = 0.1
+
+# Train the model
+w, b = gradient_descent(X_train, y_train, initial_w, initial_b, alpha, num_iters)
+print(f"Optimized parameters: w = {w}, b = {b}")
+</code></pre>
+<p>After training, we can use the optimized weights and bias to make predictions on new data:</p>
+<pre><code>def predict(X, w, b):
+    probability = sigmoid(np.dot(X, w) + b)
+    return [1 if p >= 0.5 else 0 for p in probability]
+
+# Example prediction
+y_pred = predict(X_test, w, b)
+</code></pre>
+
+<h2>7. Model Evaluation</h2>
+<p>To evaluate model performance, we calculate accuracy by comparing predicted labels with actual labels:</p>
+<pre><code>accuracy = np.mean(y_pred == y_test) * 100
+print(f"Accuracy: {accuracy:.2f}%")
+</code></pre>
+<p>Accuracy provides a simple measure of how well the model performs on the test data.</p>
+
+<h2>8. Analysis Summary</h2>
+<ul>
+    <li><strong>Sigmoid Function:</strong> Converts linear outputs into probabilities, allowing binary classification.</li>
+    <li><strong>Cost Function:</strong> Cross-entropy loss quantifies prediction error and is minimized to improve model performance.</li>
+    <li><strong>Gradient Descent:</strong> Optimizes weights and bias by iteratively reducing the cost function.</li>
+    <li><strong>Regularization:</strong> Prevents overfitting by adding a penalty for large weights, enhancing model generalization.</li>
+</ul>
+<p>This logistic regression implementation provides insight into classification tasks, optimization techniques, and methods for improving model robustness through regularization.</p>
+
+<h1>Homework 3: K-Nearest Neighbor and Naive Bayes Analysis</h1>
+<p>This section covers the code, key concepts, and implementation details for training K-Nearest Neighbor (KNN) and Naive Bayes classifiers on the Iris dataset. The primary tasks include implementing the classifiers, performing hyperparameter tuning, and visualizing decision boundaries.</p>
+
+<h2>1. Importing Libraries and Loading Data</h2>
+<p>The assignment starts by importing libraries such as <code>numpy</code>, <code>matplotlib</code>, and <code>scikit-learn</code> for handling data, creating models, and visualizing results.</p>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_iris
+</code></pre>
+
+<h3>Loading and Preprocessing Data</h3>
+<p>The Iris dataset is used in this assignment, containing features such as sepal and petal lengths and widths for three flower species. The data is split into training and testing sets, and feature scaling is applied to standardize the data:</p>
+<pre><code># Load Iris dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Split into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Standardize features
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+</code></pre>
+<p>Standardizing data helps models like KNN perform better by ensuring that each feature contributes equally to distance calculations.</p>
+
+<h2>2. K-Nearest Neighbor (KNN) Classifier</h2>
+<p>KNN is a non-parametric, instance-based learning algorithm. Given a data point, it finds the <code>K</code> closest points in the training set and assigns the most frequent class among these neighbors as the prediction.</p>
+
+<h3>2.1 Training the KNN Model</h3>
+<p>The <code>KNeighborsClassifier</code> from <code>scikit-learn</code> is used to implement KNN. After creating the model, it’s trained on the dataset:</p>
+<pre><code># Create and train the KNN model
+k = 5  # Initial choice for K
+knn = KNeighborsClassifier(n_neighbors=k)
+knn.fit(X_train, y_train)
+</code></pre>
+
+<h3>2.2 Prediction and Evaluation</h3>
+<p>Once trained, the model can be used to predict on the test set, and accuracy can be calculated to evaluate performance:</p>
+<pre><code># Make predictions on the test set
+y_pred = knn.predict(X_test)
+
+# Calculate accuracy
+accuracy = np.mean(y_pred == y_test) * 100
+print(f"KNN Accuracy with K={k}: {accuracy:.2f}%")
+</code></pre>
+
+<h3>2.3 Hyperparameter Tuning (Choosing Optimal K)</h3>
+<p>The value of <code>K</code> is a critical hyperparameter in KNN, as a small <code>K</code> can lead to overfitting, while a large <code>K</code> may cause underfitting. To find the optimal <code>K</code>, we can test various values and evaluate accuracy:</p>
+<pre><code>k_values = range(1, 21)
+train_accuracies = []
+test_accuracies = []
+
+for k in k_values:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train, y_train)
+    train_accuracies.append(knn.score(X_train, y_train))
+    test_accuracies.append(knn.score(X_test, y_test))
+
+# Plot accuracy for different K values
+plt.plot(k_values, train_accuracies, label='Train Accuracy')
+plt.plot(k_values, test_accuracies, label='Test Accuracy')
+plt.xlabel('K Value')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.title('KNN Accuracy vs. K Value')
+plt.show()
+</code></pre>
+<p>This plot helps visualize how the choice of <code>K</code> affects the model’s accuracy, allowing us to choose an optimal <code>K</code> that balances bias and variance.</p>
+
+<h2>3. Naive Bayes Classifier</h2>
+<p>Naive Bayes is a probabilistic classifier based on Bayes' theorem, with the naive assumption that features are independent given the class. We use Gaussian Naive Bayes, which assumes that feature distributions are Gaussian (normal).</p>
+
+<h3>3.1 Training the Naive Bayes Model</h3>
+<p>We use <code>GaussianNB</code> from <code>scikit-learn</code> to implement Naive Bayes, and train it on the dataset:</p>
+<pre><code># Create and train the Naive Bayes model
+nb = GaussianNB()
+nb.fit(X_train, y_train)
+</code></pre>
+
+<h3>3.2 Prediction and Evaluation</h3>
+<p>Similar to KNN, we use the trained Naive Bayes model to make predictions and calculate accuracy:</p>
+<pre><code># Make predictions on the test set
+y_pred_nb = nb.predict(X_test)
+
+# Calculate accuracy
+accuracy_nb = np.mean(y_pred_nb == y_test) * 100
+print(f"Naive Bayes Accuracy: {accuracy_nb:.2f}%")
+</code></pre>
+<p>The accuracy provides insight into the model’s performance on the test set.</p>
+
+<h2>4. Decision Boundary Visualization</h2>
+<p>Visualizing decision boundaries helps understand how each model classifies regions of the feature space. Here’s an example of plotting decision boundaries for KNN and Naive Bayes with only two features for simplicity:</p>
+
+<h3>Preparing Data for Visualization</h3>
+<p>We select the first two features of the dataset to reduce dimensionality and enable visualization in 2D.</p>
+<pre><code>X_train_2d = X_train[:, :2]
+X_test_2d = X_test[:, :2]
+
+# Retrain models on 2D data
+knn_2d = KNeighborsClassifier(n_neighbors=k)
+knn_2d.fit(X_train_2d, y_train)
+
+nb_2d = GaussianNB()
+nb_2d.fit(X_train_2d, y_train)
+</code></pre>
+
+<h3>Plotting Decision Boundaries</h3>
+<p>Using a mesh grid, we plot the decision boundaries for KNN and Naive Bayes to visualize their classifications:</p>
+<pre><code># Create mesh grid
+x_min, x_max = X_train_2d[:, 0].min() - 1, X_train_2d[:, 0].max() + 1
+y_min, y_max = X_train_2d[:, 1].min() - 1, X_train_2d[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
+                     np.arange(y_min, y_max, 0.1))
+
+# Plot KNN decision boundaries
+plt.figure(figsize=(12, 5))
+plt.subplot(1, 2, 1)
+Z = knn_2d.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+plt.contourf(xx, yy, Z, alpha=0.3)
+plt.scatter(X_train_2d[:, 0], X_train_2d[:, 1], c=y_train, edgecolor='k', marker='o')
+plt.title("KNN Decision Boundary")
+
+# Plot Naive Bayes decision boundaries
+plt.subplot(1, 2, 2)
+Z = nb_2d.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+plt.contourf(xx, yy, Z, alpha=0.3)
+plt.scatter(X_train_2d[:, 0], X_train_2d[:, 1], c=y_train, edgecolor='k', marker='o')
+plt.title("Naive Bayes Decision Boundary")
+plt.show()
+</code></pre>
+<p>This visualization shows how each model divides the feature space and predicts class labels, helping us understand the different decision-making processes of KNN and Naive Bayes.</p>
+
+<h2>5. Analysis Summary</h2>
+<ul>
+    <li><strong>KNN:</strong> A distance-based classifier, where tuning <code>K</code> helps balance bias and variance. KNN is sensitive to feature scaling.</li>
+    <li><strong>Naive Bayes:</strong> A probabilistic classifier with the assumption of feature independence. It performs well on text data and certain structured datasets.</li>
+    <li><strong>Hyperparameter Tuning:</strong> Choosing optimal <code>K</code> for KNN improves model performance by balancing overfitting and underfitting.</li>
+    <li><strong>Decision Boundaries:</strong> Visualization reveals how each classifier segments the feature space, highlighting differences in their classification strategies.</li>
+</ul>
+<p>This assignment provides insights into instance-based and probabilistic classifiers, the impact of hyperparameter tuning, and techniques for evaluating model performance on complex datasets.</p>
+
+<hr>
+<p>This comprehensive review covers core topics in machine learning, providing explanations, equations, and practical examples for each concept.</p>
+
+</body>
+</html>
